@@ -58,5 +58,5 @@ app.delete("/api/posts/:id", (req, res) => {
   })
 })
 
-// aqui a gente inicia o servidor
+// START SERVER
 app.listen(PORT, () => console.log(`Servidor rodando em http://localhost:${PORT}`))
