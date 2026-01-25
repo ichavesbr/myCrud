@@ -2,8 +2,14 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
+type Post = {
+  id: number
+  name: string
+  age: number
+}
+
 const Posts = () => {
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState<Post[]>([])
 
   useEffect(() => {
     axios.get("http://localhost:3001/api/posts").then(res => setPosts(res.data))
