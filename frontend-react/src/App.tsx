@@ -1,8 +1,9 @@
+import "./App.css"
 import { Route, Routes } from "react-router-dom"
 import { PostCreate } from "./PostCreate"
 import { Posts } from "./Posts"
 import { PostEdit } from "./PostEdit"
-import "./App.css"
+import { PostShow } from "./PostShow"
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<Posts />} />
         <Route path="/create" element={<PostCreate />} />
         <Route path="/edit/:id" element={<PostEdit />} />
+        <Route path="/show/:id" element={<PostShow />} />
       </Routes>
     </>
   )

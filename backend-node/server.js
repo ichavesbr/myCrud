@@ -8,6 +8,7 @@ const PORT = 3001
 app.use(cors())
 app.use(express.json())
 
+// CREATE CONNECTION TO DATABASE
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -46,6 +47,14 @@ app.put("/api/posts/:id", (req, res) => {
   db.query("UPDATE posts SET name=?, age=? WHERE id=?", [name, age, req.params.id], (err, result) => {
     if (err) return res.status(500).json({ error: err.message })
     res.json({ id: req.params.id, name: name, age: age })
+  })
+})
+
+// DELETE POST
+app.delete("/api/posts/:id", (req, res) => {
+  db.query("DELETE FROM posts WHERE id=?", [req.params.id], (err, rows) => {
+    if (err) return res.status(500).json({ error: err.message })
+    res.json({ message: "Post deletado com sucesso!" })
   })
 })
 

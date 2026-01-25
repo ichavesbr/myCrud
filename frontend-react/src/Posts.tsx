@@ -9,6 +9,14 @@ const Posts = () => {
     axios.get("http://localhost:3001/api/posts").then(res => setPosts(res.data))
   })
 
+  const deletePost = (id: number) => {
+    if (confirm("Are you sure?")) {
+      axios.delete(`http://localhost:3001/api/posts/${id}`).then(() => {
+        setPosts(posts.filter(p => p.id !== id))
+      })
+    }
+  }
+
   return (
     <div>
       <h1>CRUD APP</h1>
@@ -25,8 +33,8 @@ const Posts = () => {
             <div>{name}</div>
             <div>{age}</div>
             <Link to={`/edit/${id}`}>Edit</Link>
-            <button>Show</button>
-            <button>Delete</button>
+            <Link to={`/show/${id}`}>Show</Link>
+            <button onClick={() => deletePost(id)}>Delete</button>
           </div>
         ))}
       </div>
