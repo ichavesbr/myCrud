@@ -24,25 +24,53 @@ const Posts = () => {
   }
 
   return (
-    <div>
-      <h1>CRUD APP</h1>
-
-      <Link to="/create">Create</Link>
-      <hr className="my-8" />
-      <div className="flex gap-4 items-center font-bold text-lime-500">
-        <h2>Name</h2>
-        <h2>Age</h2>
+    <div className="page-wrapper">
+      <div className="header">
+        <h1>📋 User Management System</h1>
+        <Link to="/create" className="btn-primary">
+          + Add New User
+        </Link>
       </div>
-      <div className="mt-4 flex flex-col gap-2">
-        {posts.map(({ id, name, age }) => (
-          <div key={id} className="flex gap-4 justify-between items-center">
-            <div>{name}</div>
-            <div>{age}</div>
-            <Link to={`/edit/${id}`}>Edit</Link>
-            <Link to={`/show/${id}`}>Show</Link>
-            <button onClick={() => deletePost(id)}>Delete</button>
+
+      <div className="table-header">
+        <div>Name</div>
+        <div>Age</div>
+        <div>View</div>
+        <div>Edit</div>
+        <div>Delete</div>
+      </div>
+
+      <div>
+        {posts.length === 0 ? (
+          <div style={{ textAlign: "center", padding: "3rem", color: "var(--text-light)" }}>
+            No users found. Click "Add New User" to get started.
           </div>
-        ))}
+        ) : (
+          posts.map(({ id, name, age }) => (
+            <div key={id} className="table-row">
+              <div style={{ fontWeight: 600 }}>{name}</div>
+              <div>{age}</div>
+              <div className="table-actions">
+                <Link to={`/show/${id}`} style={{ color: "var(--primary)" }}>
+                  👁️ View
+                </Link>
+              </div>
+              <div className="table-actions">
+                <Link to={`/edit/${id}`} style={{ color: "var(--secondary)" }}>
+                  ✏️ Edit
+                </Link>
+              </div>
+              <div className="table-actions">
+                <button
+                  onClick={() => deletePost(id)}
+                  className="btn-danger"
+                  style={{ padding: "0.5rem 1rem", fontSize: "0.875rem" }}>
+                  🗑️ Delete
+                </button>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   )

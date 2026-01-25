@@ -17,20 +17,28 @@ const PostShow = () => {
   }, [id])
 
   return (
-    <>
-      <h1>Show Post Page</h1>
-      <div>
-        <p>
-          <strong>Name:</strong>
-          {name}
-        </p>
-        <p>
-          <strong>Age:</strong>
-          {age}
-        </p>
+    <div className="page-wrapper">
+      <div className="header">
+        <h1>👤 User Details</h1>
       </div>
-      <Link to="/">Home</Link>
-    </>
+
+      <div className="detail-card">
+        <div className="detail-item">
+          <strong>Full Name:</strong>
+          <span style={{ marginLeft: "1rem", fontSize: "1.1rem" }}>{name}</span>
+        </div>
+        <div className="detail-item">
+          <strong>Age:</strong>
+          <span style={{ marginLeft: "1rem", fontSize: "1.1rem" }}>{age}</span>
+        </div>
+      </div>
+
+      <div style={{ textAlign: "center" }}>
+        <Link to="/" className="btn-primary">
+          ← Back to List
+        </Link>
+      </div>
+    </div>
   )
 }
 

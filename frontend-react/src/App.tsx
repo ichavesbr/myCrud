@@ -7,14 +7,14 @@ import { PostShow } from "./PostShow"
 
 function App() {
   return (
-    <>
+    <div className="app-container">
       <Routes>
         <Route path="/" element={<Posts />} />
         <Route path="/create" element={<PostCreate />} />
         <Route path="/edit/:id" element={<PostEdit />} />
         <Route path="/show/:id" element={<PostShow />} />
       </Routes>
-    </>
+    </div>
   )
 }
 

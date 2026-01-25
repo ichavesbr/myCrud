@@ -17,45 +17,57 @@ const PostEdit = () => {
     }
   }, [id])
 
-  const submitForm = e => {
+  const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     axios.put(`http://localhost:3001/api/posts/${id}`, { name: name, age: age }).then(() => navigate("/"))
   }
 
   return (
-    <>
-      <h1>Edit Post Page</h1>
-      <form onSubmit={submitForm} className="flex flex-col gap-4 mt-30">
-        <div className="flex justify-center items-center gap-4">
-          <label htmlFor="name">Name</label>
+    <div className="page-wrapper">
+      <div className="header">
+        <h1>✏️ Edit User</h1>
+      </div>
+
+      <form onSubmit={submitForm} className="form-container">
+        <div className="form-group">
+          <label htmlFor="name">Full Name</label>
           <input
             type="text"
             id="name"
             name="name"
             value={name}
-            placeholder="Your name here"
+            placeholder="Enter full name"
             required
             onChange={e => setName(e.target.value)}
           />
         </div>
 
-        <div className="flex justify-center items-center gap-4">
+        <div className="form-group">
           <label htmlFor="age">Age</label>
           <input
-            type="text"
+            type="number"
             id="age"
             name="age"
             value={age}
-            placeholder="your age here"
+            placeholder="Enter age"
             required
             onChange={e => setAge(e.target.value)}
           />
         </div>
 
-        <button type="submit">Edit user</button>
+        <div className="form-actions">
+          <button type="submit" className="btn-success">
+            ✓ Save Changes
+          </button>
+          <Link
+            to="/"
+            className="btn-secondary"
+            style={{ padding: "0.75rem 1.75rem", borderRadius: "8px", display: "inline-block" }}>
+            ✕ Cancel
+          </Link>
+        </div>
       </form>
-      <Link to="/">Home</Link>
-    </>
+    </div>
   )
 }
 
