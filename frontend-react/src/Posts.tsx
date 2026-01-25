@@ -15,19 +15,16 @@ const Posts = () => {
 
       <Link to="/create">Create</Link>
       <hr className="my-8" />
-      <div className="flex gap-4 justify-between items-center">
+      <div className="flex gap-4 items-center font-bold text-lime-500">
         <h2>Name</h2>
         <h2>Age</h2>
-        <button>Edit</button>
-        <button>Show</button>
-        <button>Delete</button>
       </div>
       <div className="mt-4 flex flex-col gap-2">
-        {posts.map(post => (
-          <div key={post.id} className="flex gap-4 justify-between items-center">
-            <div>{post.name}</div>
-            <div>{post.age}</div>
-            <button>Edit</button>
+        {posts.map(({ id, name, age }) => (
+          <div key={id} className="flex gap-4 justify-between items-center">
+            <div>{name}</div>
+            <div>{age}</div>
+            <Link to={`/edit/${id}`}>Edit</Link>
             <button>Show</button>
             <button>Delete</button>
           </div>

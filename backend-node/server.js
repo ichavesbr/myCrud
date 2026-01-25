@@ -15,7 +15,16 @@ const db = mysql.createConnection({
   database: "node_crud",
 })
 
-// aqui a gente cria a rota para listar os posts
+// CREATE POST
+app.post("/api/posts", (req, res) => {
+  const { name, age } = req.body
+  db.query("INSERT INTO posts (name, age) values (?, ?)", [name, age], (err, result) => {
+    if (err) return res.status(500).json({ error: err.message })
+    res.json({ id: result.insertId, name: name, age: age })
+  })
+})
+
+// GET POSTS
 app.get("/api/posts", (req, res) => {
   db.query("SELECT * FROM posts", (err, rows) => {
     if (err) return res.status(500).json({ error: err.message })
@@ -23,12 +32,20 @@ app.get("/api/posts", (req, res) => {
   })
 })
 
-// aqui a gente cria a rota para criar um post
-app.post("/api/posts", (req, res) => {
-  const { name, age } = req.body
-  db.query("INSERT INTO posts (name, age) values (?, ?)", [name, age], (err, result) => {
+// GET POST DETAILS
+app.get("/api/posts/:id", (req, res) => {
+  db.query("SELECT * FROM posts WHERE id=?", [req.params.id], (err, rows) => {
     if (err) return res.status(500).json({ error: err.message })
-    res.json({ id: result.insertId, name: name, age: age })
+    res.json(rows[0])
+  })
+})
+
+// UPDATE POST
+app.put("/api/posts/:id", (req, res) => {
+  const { name, age } = req.body
+  db.query("UPDATE posts SET name=?, age=? WHERE id=?", [name, age, req.params.id], (err, result) => {
+    if (err) return res.status(500).json({ error: err.message })
+    res.json({ id: req.params.id, name: name, age: age })
   })
 })
 
