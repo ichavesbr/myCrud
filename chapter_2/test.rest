@@ -1,0 +1,17 @@
+#### TEST GET / WEBSITE
+GET http://localhost:3737
+
+#### TEST GET /dashboard WEBSITE
+GET http://localhost:3737/dashboard
+
+#### DATA ENDPOINT
+GET http://localhost:3737/api/data
+
+#### DATA ENDPOINT FOR ADDING A USER
+POST http://localhost:3737/api/data
+Content-Type: application/json
+
+{ "name": "kanako", "age": 31 }
+
+#### DELETE ENDPOINT
+DELETE http://localhost:3737/api/data

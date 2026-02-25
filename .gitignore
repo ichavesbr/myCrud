@@ -1,0 +1,68 @@
+# ─── Node.js ───────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.npm
+.yarn/
+
+# ─── Environment Variables ──────────────────────────────────
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env*.local
+
+# ─── Prisma ─────────────────────────────────────────────────
+prisma/migrations/dev/
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# ─── PostgreSQL ──────────────────────────────────────────────
+*.pgsql
+*.sql.bak
+pgdata/
+postgres-data/
+
+# ─── Docker ─────────────────────────────────────────────────
+.dockerignore
+docker-compose.override.yml
+docker-compose.*.local.yml
+.docker/
+
+# ─── Build / Output ─────────────────────────────────────────
+dist/
+build/
+out/
+.cache/
+coverage/
+
+# ─── Logs ───────────────────────────────────────────────────
+logs/
+*.log
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# ─── OS ─────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── IDE / Editors ──────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
