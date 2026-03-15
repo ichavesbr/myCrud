@@ -1,0 +1,15 @@
+# Dependências do Node.js
+node_modules/
+
+# Variáveis de ambiente
+.env
+
+# Arquivos de sistema do macOS
+.DS_Store
+
+# Arquivos de sistema do Windows
+Thumbs.db
+
+# Arquivos de sistema do Linux (arquivos temporários de editores)
+*.swp
+*.swo
