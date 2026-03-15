@@ -1,8 +1,8 @@
 import "dotenv/config"
 import cors from "cors"
 import express from "express"
-import { userRoutes } from "./users/routes.ts"
-import { errorHandler } from "./middleware/errorHandler.ts"
+import { userRoutes } from "./users/routes.js"
+import { errorHandler } from "./middleware/errorHandler.js"
 
 const PORT = process.env.PORT || 4242
 const app = express()
@@ -38,4 +38,4 @@ app.listen(PORT, () => console.log(`server iniciado na port ${PORT}`))
 //🚧 implementar login com email, senha
 //🚧 implementar prisma
 //🚧 implementar arquivos de tipos do TS para form de dados (user, name, etc)
-
+//🚧 implementar testes unitarios

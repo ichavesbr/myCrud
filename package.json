@@ -3,10 +3,11 @@
   "description": "CRUD em Node.js, Express, TypeScript, Postgres, Neon",
   "author": "Igor Chaves Donegá",
   "version": "2.0.0",
-  "main": "server.ts",
+  "main": "src/server.ts",
   "scripts": {
-    "dev": "ts-node server.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "node --loader ts-node/esm src/server.ts"
   },
   "type": "module",
   "dependencies": {

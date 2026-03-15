@@ -1,13 +1,17 @@
 import type { NextFunction, Request, Response } from "express"
 
-const emailExists = (error: unknown) =>
-  error instanceof Error && error.message === `duplicate key value violates unique constraint "dados_usuario_email_key"`
+const emailExists = (error: unknown) => {
+  return (
+    error instanceof Error &&
+    error.message === `duplicate key value violates unique constraint "dados_usuario_email_key"`
+  )
+}
 
 const errorHandler = (error: unknown, _req: Request, res: Response, _next: NextFunction) => {
   // error é unknown no TS, instanceof Error é necessário para acessar .message
   if (error instanceof Error) console.error("DEU ERRO:", error.message)
   else console.error("DEU ERRO (desconhecido):", error)
-  if (emailExists(error)) res.status(500).json({ mensagem_de_erro: "Email ja cadastrado!" })
+  if (emailExists(error)) return res.status(500).json({ mensagem_de_erro: "Email ja cadastrado!" })
   res.status(500).json({ mensagem_de_erro: "Erro interno do servidor" })
 }
 

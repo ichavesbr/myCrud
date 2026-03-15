@@ -1,4 +1,4 @@
-import Pool from "../config/db.ts"
+import Pool from "../config/db.js"
 
 // Queries
 const getUsersQuery = () => Pool.query('SELECT * FROM "dados_usuario"')
