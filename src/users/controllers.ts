@@ -29,7 +29,7 @@ const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = req.params.id as string // forcei a tipagem porque pode ser string ou string[]
     await deleteUserQuery(id)
-    res.status(201).json({ mensagem: "usuário deletado" })
+    res.status(200).json({ mensagem: "usuário deletado" })
   } catch (error) {
     next(error)
   }
@@ -38,8 +38,7 @@ const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name, email, password } = req.body
-    if (!name || !email || !password) throw new Error("todos campos obrigatórios!!!!!!")
-    // if (!name || !email || !password) return res.status(400).json({ mensagem_de_erro: "Todos campos sao obrigatorios" })
+    if (!name || !email || !password) return res.status(400).json({ mensagem_de_erro: "Todos campos são obrigatórios" })
     const hashedPassword = await hashPassword(password)
     await createUserQuery(name, email, hashedPassword)
     res.status(201).json({ mensagem: `usuário ${name} cadastrado` })
@@ -54,7 +53,7 @@ const editUser = async (req: Request, res: Response, next: NextFunction) => {
     const { name, email, password } = req.body
     const hashedPassword = await hashPassword(password)
     await editUserQuery(id, name, email, hashedPassword)
-    res.status(201).json({ mensagem: `usuário ${name} editado` })
+    res.status(200).json({ mensagem: `usuário ${name} editado` })
   } catch (error) {
     next(error)
   }

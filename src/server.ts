@@ -35,6 +35,7 @@ app.listen(PORT, () => console.log(`server iniciado na port ${PORT}`))
 //✅ [16/03/2026] criar rotas deleteUser
 //✅ [17/03/2026] refatora código (estrutura de pastas, nome de arquivos, funções)
 
+//🚧 verificar erros do console de experimentalWarning etc
 //🚧 implementar login com email, senha
 //🚧 implementar prisma
 //🚧 implementar arquivos de tipos do TS para form de dados (user, name, etc)
