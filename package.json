@@ -1,9 +1,11 @@
 {
   "name": "my-crud",
+  "description": "CRUD em Node.js, Express, TypeScript, Postgres, Neon",
+  "author": "Igor Chaves Donegá",
   "version": "2.0.0",
   "main": "server.ts",
   "scripts": {
-    "dev": "node --watch server.ts",
+    "dev": "ts-node server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
@@ -18,7 +20,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
-    "@types/node": "^25.3.5",
+    "@types/node": "^25.5.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }
