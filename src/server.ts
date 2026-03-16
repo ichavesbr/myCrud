@@ -2,7 +2,9 @@ import "dotenv/config"
 import cors from "cors"
 import express from "express"
 import { userRoutes } from "./users/routes.js"
+import { swaggerSpec } from "./swagger.js"
 import { errorHandler } from "./middleware/errorHandler.js"
+import swaggerUi from "swagger-ui-express"
 
 const PORT = process.env.PORT || 4242
 const app = express()
@@ -12,6 +14,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use("/users", userRoutes)
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.use(errorHandler)
 
 // Inicia o servidor
@@ -33,8 +36,10 @@ app.listen(PORT, () => console.log(`server iniciado na port ${PORT}`))
 //✅ [16/03/2026] criar rotas getUser
 //✅ [16/03/2026] criar rotas editUser
 //✅ [16/03/2026] criar rotas deleteUser
-//✅ [17/03/2026] refatora código (estrutura de pastas, nome de arquivos, funções)
+//✅ [16/03/2026] refatora código (estrutura de pastas, nome de arquivos, funções)
+//✅ [16/03/2026] arrumou status codes
 
+//⚠️ [17/03/2026] instalar swagger-ui
 //🚧 verificar erros do console de experimentalWarning etc
 //🚧 implementar login com email, senha
 //🚧 implementar prisma
