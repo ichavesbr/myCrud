@@ -6,8 +6,8 @@
   "main": "src/server.ts",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/server.js",
-    "dev": "node --watch --loader ts-node/esm src/server.ts"
+    "start": "tsx dist/server.js",
+    "dev": "NODE_OPTIONS=--no-deprecation tsx watch src/server.ts"
   },
   "type": "module",
   "dependencies": {
@@ -27,7 +27,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^25.5.0",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
 }

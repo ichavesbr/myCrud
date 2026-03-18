@@ -39,9 +39,8 @@ app.listen(PORT, () => console.log(`server iniciado na port ${PORT}`))
 //✅ [16/03/2026] refatora código (estrutura de pastas, nome de arquivos, funções)
 //✅ [16/03/2026] arrumou status codes
 //✅ [17/03/2026] instalar e configurar swagger (API documentation)
-
-//⚠️ [18/03/2026] configurar cloudflare
-//🚧 verificar erros do console de experimentalWarning etc
+//🔄 [18/03/2026] REVER UM DIA - configurar cloudflare
+//✅ [18/03/2026] verificar erros do console de experimentalWarning etc
 //🚧 implementar login com email, senha
 //🚧 implementar prisma
 //🚧 implementar arquivos de tipos do TS para form de dados (user, name, etc)
