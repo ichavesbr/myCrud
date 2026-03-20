@@ -16,7 +16,12 @@ const swaggerSpec = swaggerJSDoc({
   },
 
   // O .js cobre quando rodando após build (dist/), o .ts cobre tsx em dev
-  apis: [path.join(__dirname, "./users/routes.ts"), path.join(__dirname, "./users/routes.js")],
+  apis: [
+    path.join(__dirname, "./users/routes.ts"),
+    path.join(__dirname, "./users/routes.js"),
+    path.join(__dirname, "./login/routes.ts"),
+    path.join(__dirname, "./login/routes.js"),
+  ],
 })
 
 export { swaggerSpec }

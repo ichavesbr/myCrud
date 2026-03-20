@@ -5,6 +5,7 @@ import { userRoutes } from "./users/routes.js"
 import { swaggerSpec } from "./swagger.js"
 import { errorHandler } from "./middleware/errorHandler.js"
 import swaggerUi from "swagger-ui-express"
+import { authRoutes } from "./auth/routes.js"
 
 const PORT = process.env.PORT || 4242
 const app = express()
@@ -14,6 +15,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use("/users", userRoutes)
+app.use("/login", authRoutes)
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.use(errorHandler)
 
@@ -41,7 +43,10 @@ app.listen(PORT, () => console.log(`server iniciado na port ${PORT}`))
 //✅ [17/03/2026] instalar e configurar swagger (API documentation)
 //🔄 [18/03/2026] REVER UM DIA - configurar cloudflare
 //✅ [18/03/2026] verificar erros do console de experimentalWarning etc
-//🚧 implementar login com email, senha
+//✅ [20/03/2026] implementar autenticacao de login com email, senha
+
+//🚧 implementar rota getUser via email para rota login, depois atualizar a msm funcao na rota users
+//--> atualmente a rota users pega usuario especifico via ID. Ficou incoveniente por isso precisa mudar de ID para email
 //🚧 implementar prisma
 //🚧 implementar arquivos de tipos do TS para form de dados (user, name, etc)
 //🚧 implementar testes unitarios
