@@ -5,7 +5,10 @@ const swaggerSpec = {
     version: "1.0.0",
     description: "API de gerenciamento de usuários.",
   },
-  servers: [{ url: "http://localhost:3000" }],
+  servers: [
+    { url: "https://www.igorchaves.com", description: "Produção" },
+    { url: "http://localhost:3000", description: "Local" },
+  ],
   tags: [
     { name: "Users", description: "Gerenciamento de usuários" },
     { name: "Login", description: "Autenticação e controle de acesso" },

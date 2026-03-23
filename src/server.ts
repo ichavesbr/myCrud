@@ -12,7 +12,7 @@ const app = express()
 
 // Middlewares: funções (req, res, next) que interceptam a requisição
 // Fluxo: req → middleware1 → middleware2 → rota → res
-app.use(cors())
+app.use(cors({ origin: "*" }))
 app.use(express.json())
 app.use("/users", userRoutes)
 app.use("/login", authRoutes)
