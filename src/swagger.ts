@@ -85,7 +85,7 @@ const swaggerSpec = {
           500: { description: "Erro interno no servidor." },
         },
       },
-      put: {
+      patch: {
         summary: "Atualiza os dados de um usuário",
         tags: ["Users"],
         parameters: [
@@ -101,7 +101,7 @@ const swaggerSpec = {
           required: true,
           content: {
             "application/json": {
-              schema: { $ref: "#/components/schemas/UserInput" },
+              schema: { $ref: "#/components/schemas/UserPatchInput" },
             },
           },
         },
@@ -115,7 +115,6 @@ const swaggerSpec = {
             },
           },
           404: { description: "Usuário não encontrado." },
-          422: { description: "Dados inválidos ou campos obrigatórios ausentes." },
           500: { description: "Erro interno no servidor." },
         },
       },
@@ -208,6 +207,30 @@ const swaggerSpec = {
         },
       },
 
+      UserPatchInput: {
+        type: "object",
+        properties: {
+          name: {
+            type: "string",
+            description: "Nome completo do usuário.",
+            minLength: 3,
+          },
+          email: {
+            type: "string",
+            format: "email",
+            description: "E-mail utilizado para autenticação.",
+          },
+          password: {
+            type: "string",
+            description: "Senha de acesso. Mínimo 8 caracteres, ao menos 1 número.",
+            minLength: 8,
+          },
+        },
+        example: {
+          name: "Carlos Oliveira",
+        },
+      },
+
       UserOutput: {
         type: "object",
         properties: {
@@ -279,5 +302,5 @@ const swaggerSpec = {
 export { swaggerSpec }
 
 // FAZER DEPOIS
-// testar um por um antes de comitar
+// rota login nao esta pedindo nome e email como obrigatorios aparentemente
 // ao editar usuario com id errada da "mensagem": "usuário undefined editado" status 200
