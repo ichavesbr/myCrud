@@ -28,6 +28,8 @@ const getUser = async (req: Request, res: Response, next: NextFunction) => {
 const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = req.params.id as string // forcei a tipagem porque pode ser string ou string[]
+    const { rows } = await getUserQuery(id) // se nao encontrar id retorna array vazio --> []
+    if (rows.length === 0) return res.status(404).json({ mensagem: "Usuário não encontrado" })
     await deleteUserQuery(id)
     res.status(200).json({ mensagem: "usuário deletado" })
   } catch (error) {

@@ -44,9 +44,11 @@ app.listen(PORT, () => console.log(`server iniciado na port ${PORT}`))
 //🔄 [18/03/2026] REVER UM DIA - configurar cloudflare
 //✅ [18/03/2026] verificar erros do console de experimentalWarning etc
 //✅ [20/03/2026] implementar autenticacao de login com email, senha
+//⚠️ [20/03/2026] refatorando swagger
 
 //🚧 implementar rota getUser via email para rota login, depois atualizar a msm funcao na rota users
 //--> atualmente a rota users pega usuario especifico via ID. Ficou incoveniente por isso precisa mudar de ID para email
+//--> tambem atualizar na documentacao do swagger de cada rota senao da problema provavelmente
 //🚧 implementar prisma
 //🚧 implementar arquivos de tipos do TS para form de dados (user, name, etc)
 //🚧 implementar testes unitarios

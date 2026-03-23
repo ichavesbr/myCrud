@@ -18,7 +18,7 @@ const authHandler = async (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
-export { authHandler }
+export {  authHandler }
 
 // criar token JWT (com dados do usuário - id, etc)
 // retornar token pro usuário
