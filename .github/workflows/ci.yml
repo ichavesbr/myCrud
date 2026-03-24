@@ -1,0 +1,60 @@
+# Nome do workflow — aparece na aba "Actions" do GitHub
+name: CI - Lint, Test and Build
+
+# "on" define quando esse workflow é disparado
+on:
+  push:
+    branches: [main] # Roda ao fazer push direto na main
+  pull_request:
+    branches: [main] # Roda ao abrir/atualizar um PR com destino à main
+
+# Um workflow tem um ou mais "jobs" que rodam em paralelo por padrão
+jobs:
+  build:
+    # Sistema operacional da máquina virtual que o GitHub vai provisionar
+    runs-on: ubuntu-latest
+
+    # Matrix roda o mesmo job múltiplas vezes com valores diferentes.
+    # Aqui garante que o projeto funciona nas duas versões LTS ativas do Node.
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+
+    # Variáveis de ambiente disponíveis em todos os steps deste job.
+    # Secrets são configurados em: Settings → Secrets and variables → Actions
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }} # Connection string do Neon
+      NODE_ENV: production
+
+    # "steps" são os passos executados em sequência dentro do job
+    steps:
+      # Faz o checkout do código do repositório para dentro da máquina virtual
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      # Instala o Node na versão definida pela matrix e ativa cache do npm
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm" # Armazena node_modules em cache entre runs para acelerar
+
+      # Instala dependências de forma determinística (respeita o package-lock.json)
+      # "ci" é diferente de "install": nunca altera o lockfile e é mais rápido em CI
+      - name: Instalar dependências
+        run: npm ci
+
+      # Roda o linter (ESLint) para garantir que o código segue as regras do projeto
+      - name: Lint
+        run: npm run lint
+
+      # Compila o TypeScript para JavaScript (geralmente tsc, definido no package.json)
+      # Se tiver erros de tipo, o build falha e o PR fica bloqueado
+      - name: Build
+        run: npm run build
+
+      # Testes desabilitados por enquanto — basta descomentar quando estiver pronto
+      # - name: Testes
+      #   run: npm test
+      #   env:
+      #     DATABASE_URL: ${{ secrets.DATABASE_URL }} # Testes precisarão do banco
