@@ -319,5 +319,6 @@ const swaggerSpec = {
 export { swaggerSpec }
 
 // FAZER DEPOIS
+// lembrar-se de sempre colocar / ao final das url para nao causar nenhum erro imprevisivel
 // rota login nao esta pedindo nome e email como obrigatorios aparentemente
 // ao editar usuario com id errada da "mensagem": "usuário undefined editado" status 200
