@@ -44,12 +44,22 @@ app.listen(PORT, () => console.log(`server iniciado na port ${PORT}`))
 //🔄 [18/03/2026] REVER UM DIA - configurar cloudflare
 //✅ [18/03/2026] verificar erros do console de experimentalWarning etc
 //✅ [20/03/2026] implementar autenticacao de login com email, senha
-//⚠️ [20/03/2026] refatorando swagger
+//✅ [20/03/2026] refatorando swagger
 
+//⚠️ [25/03/2026] implementar prisma
+//🚧 implementar migration (criar schemas das tabelas)
 //🚧 implementar sistema de seguranca de login com JWT
 //🚧 implementar rota getUser via email para rota login, depois atualizar a msm funcao na rota users
 //--> atualmente a rota users pega usuario especifico via ID. Ficou incoveniente por isso precisa mudar de ID para email
 //--> tambem atualizar na documentacao do swagger de cada rota senao da problema provavelmente
-//🚧 implementar prisma
 //🚧 implementar arquivos de tipos do TS para form de dados (user, name, etc)
 //🚧 implementar testes unitarios
+//🚧 adicionar rota /health para testar api
+
+// [25/03/2026] APOS INSTALAR PRISMA deu isso aqui.
+// verificar se esses erros ao instalar o PRISMA pode ser corrigidos ou vao dar problema no futuro
+// npm warn EBADENGINE Unsupported engine {
+// npm warn EBADENGINE   package: '@prisma/studio-core@0.21.1',
+// npm warn EBADENGINE   required: { node: '^20.19 || ^22.12 || ^24.0', pnpm: '8' },
+// npm warn EBADENGINE   current: { node: 'v25.7.0', npm: '11.10.1' }
+// npm warn EBADENGINE }
