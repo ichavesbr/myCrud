@@ -6,7 +6,7 @@ const swaggerSpec = {
     description: "API de gerenciamento de usuários.",
   },
   servers: [
-    { url: "api.igorchaves.com", description: "Produção" },
+    { url: "https://api.igorchaves.com", description: "Produção" },
     { url: "http://localhost:3000", description: "Local" },
   ],
   tags: [
@@ -16,9 +16,9 @@ const swaggerSpec = {
   paths: {
     "/users": {
       get: {
+        operationId: "getUsers",
         summary: "Lista todos os usuários",
         tags: ["Users"],
-        parameters: [],
         responses: {
           200: {
             description: "Listagem retornada com sucesso.",
@@ -35,6 +35,7 @@ const swaggerSpec = {
         },
       },
       post: {
+        operationId: "createUser",
         summary: "Cadastra um novo usuário",
         tags: ["Users"],
         requestBody: {
@@ -61,6 +62,7 @@ const swaggerSpec = {
     },
     "/users/{id}": {
       get: {
+        operationId: "getUserById",
         summary: "Busca um usuário pelo ID",
         tags: ["Users"],
         parameters: [
@@ -86,6 +88,7 @@ const swaggerSpec = {
         },
       },
       patch: {
+        operationId: "updateUser",
         summary: "Atualiza os dados de um usuário",
         tags: ["Users"],
         parameters: [
@@ -119,6 +122,7 @@ const swaggerSpec = {
         },
       },
       delete: {
+        operationId: "deleteUser",
         summary: "Remove um usuário pelo ID",
         tags: ["Users"],
         parameters: [
@@ -137,6 +141,7 @@ const swaggerSpec = {
               "application/json": {
                 schema: {
                   type: "object",
+                  additionalProperties: false,
                   properties: {
                     mensagem: { type: "string" },
                   },
@@ -152,6 +157,7 @@ const swaggerSpec = {
     },
     "/login": {
       post: {
+        operationId: "loginUser",
         summary: "Autentica o usuário e retorna um token JWT",
         tags: ["Login"],
         requestBody: {
@@ -182,12 +188,14 @@ const swaggerSpec = {
     schemas: {
       UserInput: {
         type: "object",
+        additionalProperties: false,
         required: ["name", "email", "password"],
         properties: {
           name: {
             type: "string",
             description: "Nome completo do usuário.",
             minLength: 3,
+            pattern: "^[A-Za-zÀ-ÿ\\s'-]+$",
           },
           email: {
             type: "string",
@@ -198,6 +206,7 @@ const swaggerSpec = {
             type: "string",
             description: "Senha de acesso. Mínimo 8 caracteres, ao menos 1 número.",
             minLength: 8,
+            pattern: "^(?=.*\\d).+$",
           },
         },
         example: {
@@ -209,11 +218,13 @@ const swaggerSpec = {
 
       UserPatchInput: {
         type: "object",
+        additionalProperties: false,
         properties: {
           name: {
             type: "string",
             description: "Nome completo do usuário.",
             minLength: 3,
+            pattern: "^[A-Za-zÀ-ÿ\\s'-]+$",
           },
           email: {
             type: "string",
@@ -224,6 +235,7 @@ const swaggerSpec = {
             type: "string",
             description: "Senha de acesso. Mínimo 8 caracteres, ao menos 1 número.",
             minLength: 8,
+            pattern: "^(?=.*\\d).+$",
           },
         },
         example: {
@@ -233,6 +245,7 @@ const swaggerSpec = {
 
       UserOutput: {
         type: "object",
+        additionalProperties: false,
         properties: {
           id: {
             type: "string",
@@ -242,6 +255,7 @@ const swaggerSpec = {
           name: {
             type: "string",
             description: "Nome completo do usuário.",
+            pattern: "^[A-Za-zÀ-ÿ\\s'-]+$",
           },
           email: {
             type: "string",
@@ -258,6 +272,7 @@ const swaggerSpec = {
 
       LoginInput: {
         type: "object",
+        additionalProperties: false,
         required: ["email", "password"],
         properties: {
           email: {
@@ -269,6 +284,7 @@ const swaggerSpec = {
             type: "string",
             description: "Senha de acesso.",
             minLength: 8,
+            pattern: "^(?=.*\\d).+$",
           },
         },
         example: {
@@ -279,6 +295,7 @@ const swaggerSpec = {
 
       LoginOutput: {
         type: "object",
+        additionalProperties: false,
         properties: {
           token: {
             type: "string",
