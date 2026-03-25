@@ -18,7 +18,7 @@ app.use("/users", userRoutes)
 app.use("/login", authRoutes)
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.use(errorHandler)
-main()
+// main()
 
 // Inicia o servidor
 app.listen(PORT, () => console.log(`server iniciado na port ${PORT}`))
