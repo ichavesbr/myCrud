@@ -1,12 +1,12 @@
 import type { NextFunction, Request, Response } from "express"
 import { createUserQuery, deleteUserQuery, editUserQuery, getUserQuery, getUsersQuery } from "./models.js"
 import { hashPassword } from "../utils/password.js"
+import { prisma } from "../utils/prisma.js"
 
-// Controladores - tudo que nao for rota, nem query
 const getUsers = async (_req: Request, res: Response, next: NextFunction) => {
   try {
-    const { rows } = await getUsersQuery()
-    res.status(200).json(rows)
+    const users = await prisma.user.findMany({ omit: { password: true } })
+    res.status(200).json(users)
   } catch (error) {
     next(error)
   }

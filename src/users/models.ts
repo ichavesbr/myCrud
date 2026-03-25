@@ -1,7 +1,7 @@
 import Pool from "../config/db.js"
+import { prisma } from "../utils/prisma.js"
 
 // Queries
-const getUsersQuery = () => Pool.query('SELECT * FROM "dados_usuario"')
 const getUserQuery = (id: string) => Pool.query('SELECT * FROM "dados_usuario" WHERE id = $1', [id])
 const getUserByEmailQuery = (email: string) => Pool.query('SELECT * FROM "dados_usuario" WHERE email = $1', [email])
 const deleteUserQuery = (id: string) => Pool.query('DELETE FROM "dados_usuario" WHERE id = $1', [id])
