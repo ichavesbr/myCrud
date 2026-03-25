@@ -6,8 +6,8 @@ const swaggerSpec = {
     description: "API de gerenciamento de usuários.",
   },
   servers: [
-    { url: "https://api.igorchaves.com", description: "Produção" },
-    { url: "http://localhost:3000", description: "Local" },
+    { url: "https://api.igorchaves.com/", description: "Produção" },
+    { url: "http://localhost:3000/", description: "Local" },
   ],
   tags: [
     { name: "Users", description: "Gerenciamento de usuários" },
@@ -319,5 +319,6 @@ const swaggerSpec = {
 export { swaggerSpec }
 
 // FAZER DEPOIS
+// lembrar-se de sempre colocar / ao final das url para nao causar nenhum erro imprevisivel
 // rota login nao esta pedindo nome e email como obrigatorios aparentemente
 // ao editar usuario com id errada da "mensagem": "usuário undefined editado" status 200
