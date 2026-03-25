@@ -4,7 +4,7 @@ import { createUser, deleteUser, editUser, getUser, getUsers } from "./controlle
 const userRoutes = Router()
 
 userRoutes.get("/", getUsers)
-userRoutes.get("/:id", getUser)
+userRoutes.post("/:email", getUser)
 userRoutes.post("/", createUser)
 userRoutes.patch("/:id", editUser)
 userRoutes.delete("/:id", deleteUser)

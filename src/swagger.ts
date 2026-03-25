@@ -59,19 +59,18 @@ const swaggerSpec = {
         },
       },
     },
-    "/users/{id}": {
-      get: {
-        summary: "Busca um usuário pelo ID",
+    "/users/email": {
+      post: {
+        summary: "Busca um usuário pelo email",
         tags: ["Users"],
-        parameters: [
-          {
-            in: "path",
-            name: "id",
-            schema: { type: "string", format: "uuid" },
-            required: true,
-            description: "UUID do usuário",
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/UserSearchEmail" },
+            },
           },
-        ],
+        },
         responses: {
           200: {
             description: "Usuário localizado com sucesso.",
@@ -205,6 +204,18 @@ const swaggerSpec = {
           email: "carlos.oliveira@empresa.com",
           password: "Secure@2024",
         },
+      },
+      UserSearchEmail: {
+        type: "object",
+        required: ["email"],
+        properties: {
+          email: {
+            type: "string",
+            format: "email",
+            description: "E-mail utilizado para autenticação.",
+          },
+        },
+        example: { email: "carlos.oliveira@empresa.com" },
       },
 
       UserPatchInput: {
