@@ -12,6 +12,7 @@ const app = express()
 
 // Middlewares: funções (req, res, next) que interceptam a requisição
 // Fluxo: req → middleware1 → middleware2 → rota → res
+app.disable("x-powered-by") // remove X-Powered-By: Express do header, metodo de seguranca
 app.use(cors({ origin: "*" }))
 app.use(express.json())
 app.use("/users", userRoutes)
