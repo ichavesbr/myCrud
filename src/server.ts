@@ -6,10 +6,10 @@ import { swaggerSpec } from "./swagger.js"
 import { errorHandler } from "./middleware/errorHandler.js"
 import swaggerUi from "swagger-ui-express"
 import { authRoutes } from "./auth/routes.js"
+import { main } from "./utils/testePrisma.js"
 
 const PORT = process.env.PORT || 4242
 const app = express()
-
 // Middlewares: funções (req, res, next) que interceptam a requisição
 // Fluxo: req → middleware1 → middleware2 → rota → res
 app.use(cors({ origin: "*" }))
@@ -18,6 +18,7 @@ app.use("/users", userRoutes)
 app.use("/login", authRoutes)
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.use(errorHandler)
+main()
 
 // Inicia o servidor
 app.listen(PORT, () => console.log(`server iniciado na port ${PORT}`))
