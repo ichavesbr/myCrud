@@ -6,8 +6,8 @@ const swaggerSpec = {
     description: "API de gerenciamento de usuários.",
   },
   servers: [
-    { url: "https://api.igorchaves.com", description: "Produção" },
-    { url: "http://localhost:3000", description: "Local" },
+    { url: "https://api.igorchaves.com/", description: "Produção" },
+    { url: "http://localhost:3000/", description: "Local" },
   ],
   tags: [
     { name: "Users", description: "Gerenciamento de usuários" },
