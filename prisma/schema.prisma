@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  transactions Transaction[]
+  categories   TransactionCategory[]
+  goals        Goal[]
+}
+
+model Transaction {
+  id          String          @id @default(uuid())
+  type        TransactionType
+  amount      Decimal         @db.Decimal(10, 2)
+  description String?
+  date        DateTime
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  categoryId String
+  category   TransactionCategory @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  // impede deletar categoria com transações
+
+  // melhora performance de busca
+  @@index([userId])
+  @@index([categoryId])
+  @@index([userId, date])
+}
+
+model TransactionCategory {
+  id   String          @id @default(uuid())
+  name String // ex: "Salário", "Mercado"
+  type TransactionType
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  transactions Transaction[]
+
+  @@unique([userId, name]) // evita duplicação por usuário
+  @@index([userId])
+}
+
+model Goal {
+  id            String    @id @default(uuid())
+  name          String
+  description   String?
+  targetAmount  Decimal   @db.Decimal(10, 2)
+  currentAmount Decimal   @default(0.0) @db.Decimal(10, 2)
+  deadline      DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, name]) // opcional: evita nomes duplicados
+  @@index([userId])
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+}
+
+// ========================= LEMBRAR DE FAZER NO BACKEND =========================
+//
+// 1. Garantir consistência entre Transaction e Category
+//    Nunca permitir: Transaction.type !== Category.type
+//
+//    Exemplo:
+//    if (transaction.type !== category.type) {
+//      throw new Error("Transaction type mismatch with category")
+//    }
+//
+// -----------------------------------------------------------------------------
+//
+// 2. Tratar nome de categoria (evitar duplicatas com case diferente)
+//
+//    Fazer no backend, para evitar "Mercado" vs "mercado":
+//    name = name.trim().toLowerCase()
+//
+// -----------------------------------------------------------------------------
+//
+// 3. "onDelete: Restrict" evita que uma categoria com transações vinculadas seja deletada
+//    - Tratar o erro no backend e retornar mensagem amigável ao usuário
+//
+// -----------------------------------------------------------------------------
+//
+// 4. Seed de categorias padrão ao registrar usuário (ainda pensando se vale a pena / se quero fazer isso)
+//    - Ao criar um novo usuário, criar automaticamente as categorias iniciais
+//    - Exemplo de categorias sugeridas:
+//
+//      INCOME:  Salário, Freelance, Presente, Outros
+//      EXPENSE: Mercado, Aluguel, Transporte, Saúde, Lazer, Outros
+//
+//    - O usuário pode editar, deletar ou criar novas categorias depois
+//
+// ===============================================================================
