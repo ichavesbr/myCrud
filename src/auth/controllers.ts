@@ -1,15 +1,16 @@
 import type { NextFunction, Request, Response } from "express"
 import { comparePassword } from "../utils/password.js"
-import { getUserByEmailQuery } from "../users/models.js"
+import { prisma } from "../utils/prisma.js"
 
 const authHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password } = req.body
-    const { rows } = await getUserByEmailQuery(email) // se nao encontrar usuario com este email retorna array vazio --> []
-    if (rows.length === 0) return res.status(401).json({ mensagem: "email ou senha incorretos" })
+    if (!email || !password) return res.status(400).json({ mensagem_de_erro: "Todos campos são obrigatórios" })
 
-    const userData = rows[0]
-    const verifyPassword = await comparePassword(password, userData.hashed_password)
+    const user = await prisma.user.findUnique({ where: { email: email } })
+    if (!user) return res.status(404).json({ mensagem_de_erro: "email ou senha incorretos" })
+
+    const verifyPassword = await comparePassword(password, user.password)
     if (!verifyPassword) return res.status(401).json({ mensagem: "email ou senha incorretos" })
 
     res.status(200).json({ mensagem: "Usuario logado com sucesso" })
@@ -18,7 +19,7 @@ const authHandler = async (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
-export {  authHandler }
+export { authHandler }
 
 // criar token JWT (com dados do usuário - id, etc)
 // retornar token pro usuário
