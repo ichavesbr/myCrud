@@ -2,7 +2,7 @@
   "name": "my-crud",
   "description": "CRUD em Node.js, Express, TypeScript, Postgres, Neon",
   "author": "Igor Chaves Donegá",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "main": "src/server.ts",
   "scripts": {
     "build": "tsc",
@@ -23,14 +23,15 @@
     "openapi-types": "^12.1.3",
     "pg": "^8.20.0",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^25.5.0",
     "@types/pg": "^8.20.0",
-    "prisma": "^7.5.0",
+    "prisma": "^6.12.0",
     "tsx": "^4.21.0",
     "typescript": "^6.0.2"
   }

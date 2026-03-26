@@ -45,7 +45,8 @@ app.listen(PORT, () => console.log(`server iniciado na port ${PORT}`))
 //✅ [20/03/2026] implementar autenticacao de login com email, senha
 //✅ [20/03/2026] refatorando swagger
 
-//⚠️ [25/03/2026] implementar prisma
+//⚠️ [26/03/2026] implementar prisma
+//🚧 implementar zod para validar campos
 //🚧 implementar migration (criar schemas das tabelas)
 //🚧 implementar sistema de seguranca de login com JWT
 //🚧 implementar rota getUser via email para rota login, depois atualizar a msm funcao na rota users
