@@ -1,20 +1,36 @@
 import "dotenv/config"
 import cors from "cors"
 import express from "express"
+import cookieParser from "cookie-parser"
 import { userRoutes } from "./users/routes.js"
 import { swaggerSpec } from "./swagger.js"
 import { errorHandler } from "./middleware/errorHandler.js"
 import swaggerUi from "swagger-ui-express"
 import { authRoutes } from "./auth/routes.js"
+import { rotaprotegidaRoutes } from "./rotaprotegida/rotaprotegida.js"
+import { cookieJwtAuth } from "./middleware/cookieJwtAuth.js"
 
 const PORT = process.env.PORT || 4242
 const app = express()
+
 // Middlewares: funções (req, res, next) que interceptam a requisição
 // Fluxo: req → middleware1 → middleware2 → rota → res
-app.use(cors({ origin: "*" }))
+
+const allowedOrigins = ["https://igorchaves.com", "https://www.igorchaves.com", "http://localhost:3000"]
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+)
+
 app.use(express.json())
+app.use(cookieParser())
 app.use("/users", userRoutes)
 app.use("/login", authRoutes)
+app.use("/rotaprotegida", cookieJwtAuth, rotaprotegidaRoutes)
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.use(errorHandler)
 
@@ -40,12 +56,18 @@ app.listen(PORT, () => console.log(`server iniciado na port ${PORT}`))
 //✅ [16/03/2026] refatora código (estrutura de pastas, nome de arquivos, funções)
 //✅ [16/03/2026] arrumou status codes
 //✅ [17/03/2026] instalar e configurar swagger (API documentation)
-//🔄 [18/03/2026] REVER UM DIA - configurar cloudflare
+//✅ [18/03/2026] configurar cloudflare
 //✅ [18/03/2026] verificar erros do console de experimentalWarning etc
 //✅ [20/03/2026] implementar autenticacao de login com email, senha
 //✅ [20/03/2026] refatorando swagger
+//✅ [26/03/2026] implementar prisma
+//✅ [01/04/2026] atualizar cors
 
-//⚠️ [26/03/2026] implementar prisma
+//⚠️ [27/03/2026] implementar JWT + token de validacao
+//🚧 criar um middleware de auth para proteger rotas privadas (+ tokens de validacao em requisições futuras)
+//🚧 enviar pra nova rota autenticado
+//🔄 refatorar swagger
+//🔄 refatorar cloudflare e railway (migrar para AWS apos periodo de teste - 30 dias)
 //🚧 implementar zod para validar campos
 //🚧 implementar migration (criar schemas das tabelas)
 //🚧 implementar sistema de seguranca de login com JWT
@@ -55,11 +77,3 @@ app.listen(PORT, () => console.log(`server iniciado na port ${PORT}`))
 //🚧 implementar arquivos de tipos do TS para form de dados (user, name, etc)
 //🚧 implementar testes unitarios
 //🚧 adicionar rota /health para testar api
-
-// [25/03/2026] APOS INSTALAR PRISMA deu isso aqui.
-// verificar se esses erros ao instalar o PRISMA pode ser corrigidos ou vao dar problema no futuro
-// npm warn EBADENGINE Unsupported engine {
-// npm warn EBADENGINE   package: '@prisma/studio-core@0.21.1',
-// npm warn EBADENGINE   required: { node: '^20.19 || ^22.12 || ^24.0', pnpm: '8' },
-// npm warn EBADENGINE   current: { node: 'v25.7.0', npm: '11.10.1' }
-// npm warn EBADENGINE }

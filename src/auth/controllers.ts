@@ -1,6 +1,7 @@
 import type { NextFunction, Request, Response } from "express"
 import { comparePassword } from "../utils/password.js"
 import { prisma } from "../utils/prisma.js"
+import jwt from "jsonwebtoken"
 
 const authHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -13,15 +14,16 @@ const authHandler = async (req: Request, res: Response, next: NextFunction) => {
     const verifyPassword = await comparePassword(password, user.password)
     if (!verifyPassword) return res.status(401).json({ mensagem: "email ou senha incorretos" })
 
-    res.status(200).json({ mensagem: "Usuario logado com sucesso" })
+    const secret = process.env.MY_SECRET
+    if (!secret) throw new Error("MY_SECRET não definido nas variáveis de ambiente")
+
+    const token = jwt.sign({ sub: user.id, name: user.name }, secret, { expiresIn: "1h" })
+    res.status(200).cookie("token", token, { httpOnly: true })
+
+    return res.redirect("/rotaprotegida")
   } catch (error) {
     next(error)
   }
 }
 
 export { authHandler }
-
-// criar token JWT (com dados do usuário - id, etc)
-// retornar token pro usuário
-// criar um middleware de autenticação que protege as rotas privadas, verificando e validando o token em requisições futuras
-// enviar pra nova rota autenticado
